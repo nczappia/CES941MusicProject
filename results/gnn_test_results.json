@@ -1,0 +1,54 @@
+{
+  "test": {
+    "top1_acc": 0.998214073103941,
+    "top5_acc": 0.9991665674485057,
+    "top10_acc": 0.9995237528277175,
+    "cross_entropy": 0.015441181219990927
+  },
+  "by_section": {
+    "intro": {
+      "top1_acc": 1.0,
+      "count": 538
+    },
+    "verse": {
+      "top1_acc": 0.9983568846533026,
+      "count": 3043
+    },
+    "chorus": {
+      "top1_acc": 0.9976833976833976,
+      "count": 2590
+    },
+    "bridge": {
+      "top1_acc": 0.9965870307167235,
+      "count": 586
+    },
+    "prechorus": {
+      "top1_acc": 1.0,
+      "count": 238
+    },
+    "outro": {
+      "top1_acc": 1.0,
+      "count": 343
+    },
+    "instrumental": {
+      "top1_acc": 1.0,
+      "count": 150
+    },
+    "interlude": {
+      "top1_acc": 1.0,
+      "count": 219
+    },
+    "solo": {
+      "top1_acc": 0.9977116704805492,
+      "count": 437
+    },
+    "trans": {
+      "top1_acc": 1.0,
+      "count": 147
+    },
+    "other": {
+      "top1_acc": 0.9907407407407407,
+      "count": 108
+    }
+  }
+}
