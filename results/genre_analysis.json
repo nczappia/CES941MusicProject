@@ -1,0 +1,17 @@
+{
+  "genre_counts": {
+    "blues": 19,
+    "other": 66,
+    "rock": 459,
+    "country": 31,
+    "folk": 24,
+    "disco_dance": 32,
+    "pop": 169,
+    "jazz": 23,
+    "soul_r&b": 63,
+    "hip_hop": 4
+  },
+  "labeled_songs": 824,
+  "total_songs": 890,
+  "match_rate": 0.9382022471910112
+}

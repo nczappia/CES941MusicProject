@@ -241,21 +241,36 @@ def collect_occ_embeddings(
 
 def _get_occ_embeddings(model: MusicHeteroGNN, data: HeteroData) -> torch.Tensor:
     """Run forward pass up to (not including) the classifier head."""
+    from .graph import CHORD_FEAT_DIM
     device = next(model.parameters()).device
     data = data.to(device)
     x_sec = data['sec'].x
     if not model.use_sec_features:
         x_sec = torch.zeros_like(x_sec)
 
+    occ_input = data['occ'].x
+    if model.use_chord_in_occ:
+        ei_inst_rev = data.edge_index_dict.get(('chord', 'inst_rev', 'occ'))
+        if ei_inst_rev is not None:
+            ei_inst_rev = ei_inst_rev.to(device)
+            chord_feat_per_occ = torch.zeros(
+                occ_input.shape[0], CHORD_FEAT_DIM,
+                device=device, dtype=occ_input.dtype,
+            )
+            chord_feat_per_occ[ei_inst_rev[1]] = data['chord'].x.to(device)[ei_inst_rev[0]]
+            occ_input = torch.cat([occ_input, chord_feat_per_occ], dim=1)
+
     h = {
-        'occ':   model.occ_proj(data['occ'].x),
+        'occ':   model.occ_proj(occ_input),
         'chord': model.chord_proj(data['chord'].x),
         'sec':   model.sec_proj(x_sec),
     }
 
     active_ets = set()
     if model.use_seq_edges:
-        active_ets |= {('occ', 'next', 'occ'), ('occ', 'prev', 'occ')}
+        active_ets.add(('occ', 'next', 'occ'))
+    if model.use_seq_edges and model.use_prev_edges:
+        active_ets.add(('occ', 'prev', 'occ'))
     if model.use_inst_edges:
         active_ets |= {('occ', 'instance_of', 'chord'), ('chord', 'inst_rev', 'occ')}
     if model.use_section_edges:

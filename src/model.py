@@ -4,7 +4,7 @@ Heterogeneous GNN for next-chord prediction.
 Architecture
 ────────────
 1. Linear projections: occ(2-d), chord(20-d), sec(13-d) → hidden_dim each
-2. N layers of HeteroConv (SAGEConv per relation)
+2. N layers of HeteroConv (SAGEConv or GATConv per relation)
 3. Linear classifier: occ embedding → 145 logits (144 chord types + N)
 
 Ablation flags
@@ -14,6 +14,7 @@ Ablation flags
     use_section_edges : (occ,in_section,sec) + (sec,sec_rev,occ)
     use_sec_seq_edges : (sec,next_section,sec)
     use_sec_features  : if False, zero out sec node features
+    use_attention     : if True, use GATConv instead of SAGEConv (enables attention extraction)
 
 Also contains LSTMBaseline for sequence-model comparison.
 """
@@ -21,7 +22,7 @@ Also contains LSTMBaseline for sequence-model comparison.
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torch_geometric.nn import HeteroConv, SAGEConv
+from torch_geometric.nn import HeteroConv, SAGEConv, GATConv
 
 from .vocab import VOCAB_SIZE, N_CHORD_ID
 from .graph import OCC_FEAT_DIM, CHORD_FEAT_DIM, SEC_FEAT_DIM
@@ -37,43 +38,61 @@ class MusicHeteroGNN(nn.Module):
         dropout: float = 0.3,
         # ablation switches
         use_seq_edges: bool     = True,
+        use_prev_edges: bool    = True,   # False = causal model (no future leakage)
         use_inst_edges: bool    = True,
         use_section_edges: bool = True,
         use_sec_seq_edges: bool = True,
         use_sec_features: bool  = True,
+        # input enrichment
+        use_chord_in_occ: bool  = True,   # inject current chord features into occ input
+        # attention
+        use_attention: bool     = False,  # True = GATConv instead of SAGEConv
+        gat_heads: int          = 4,      # number of attention heads
     ):
         super().__init__()
         self.use_seq_edges     = use_seq_edges
+        self.use_prev_edges    = use_prev_edges
         self.use_inst_edges    = use_inst_edges
         self.use_section_edges = use_section_edges
         self.use_sec_seq_edges = use_sec_seq_edges
         self.use_sec_features  = use_sec_features
+        self.use_chord_in_occ  = use_chord_in_occ
+        self.use_attention     = use_attention
+        self.gat_heads         = gat_heads
 
         # Input projections
-        self.occ_proj   = nn.Linear(OCC_FEAT_DIM,   hidden_dim)
+        # If use_chord_in_occ, occ input = [timing(2) | chord_features(20)] = 22-dim
+        occ_in_dim = OCC_FEAT_DIM + (CHORD_FEAT_DIM if use_chord_in_occ else 0)
+        self.occ_proj   = nn.Linear(occ_in_dim,      hidden_dim)
         self.chord_proj = nn.Linear(CHORD_FEAT_DIM,  hidden_dim)
         self.sec_proj   = nn.Linear(SEC_FEAT_DIM,    hidden_dim)
 
         # HeteroConv layers
+        # GATConv: multi-head attention; output dim = hidden_dim // heads per head, concat → hidden_dim
+        assert hidden_dim % gat_heads == 0, "hidden_dim must be divisible by gat_heads"
+        gat_out = hidden_dim // gat_heads  # per-head dim; concat gives hidden_dim
+
+        def make_conv(in_dim=hidden_dim, out_dim=hidden_dim):
+            if use_attention:
+                return GATConv(in_dim, gat_out, heads=gat_heads,
+                               concat=True, dropout=dropout, add_self_loops=False)
+            return SAGEConv(in_dim, out_dim)
+
         self.convs = nn.ModuleList()
         for _ in range(num_layers):
             conv_dict = {}
             if use_seq_edges:
-                conv_dict[('occ', 'next', 'occ')] = SAGEConv(hidden_dim, hidden_dim)
-                conv_dict[('occ', 'prev', 'occ')] = SAGEConv(hidden_dim, hidden_dim)
+                conv_dict[('occ', 'next', 'occ')] = make_conv()
+            if use_seq_edges and use_prev_edges:
+                conv_dict[('occ', 'prev', 'occ')] = make_conv()
             if use_inst_edges:
-                conv_dict[('occ',   'instance_of', 'chord')] = SAGEConv(hidden_dim, hidden_dim)
-                conv_dict[('chord', 'inst_rev',    'occ')]   = SAGEConv(hidden_dim, hidden_dim)
+                conv_dict[('occ',   'instance_of', 'chord')] = make_conv()
+                conv_dict[('chord', 'inst_rev',    'occ')]   = make_conv()
             if use_section_edges:
-                conv_dict[('occ', 'in_section', 'sec')] = SAGEConv(hidden_dim, hidden_dim)
-                conv_dict[('sec', 'sec_rev',    'occ')] = SAGEConv(hidden_dim, hidden_dim)
+                conv_dict[('occ', 'in_section', 'sec')] = make_conv()
+                conv_dict[('sec', 'sec_rev',    'occ')] = make_conv()
             if use_sec_seq_edges and use_section_edges:
-                conv_dict[('sec', 'next_section', 'sec')] = SAGEConv(hidden_dim, hidden_dim)
-
-            # Fallback: if nothing targets occ, add a self-loop-style identity via a dummy conv
-            if not any(et[2] == 'occ' for et in conv_dict):
-                # all ablated — keep at least a linear transform via dummy pass
-                pass
+                conv_dict[('sec', 'next_section', 'sec')] = make_conv()
 
             self.convs.append(HeteroConv(conv_dict, aggr='mean'))
 
@@ -89,8 +108,22 @@ class MusicHeteroGNN(nn.Module):
         if not self.use_sec_features:
             x_sec = torch.zeros_like(x_sec)
 
+        # Optionally inject current chord's features into each occ's input.
+        # Uses inst_rev edge (chord→occ) as a lookup — each occ maps to exactly
+        # one chord type node, so this is an index gather, not an aggregation.
+        occ_input = x_dict['occ']
+        if self.use_chord_in_occ:
+            ei_inst_rev = edge_index_dict.get(('chord', 'inst_rev', 'occ'))
+            if ei_inst_rev is not None:
+                chord_feat_per_occ = torch.zeros(
+                    occ_input.shape[0], CHORD_FEAT_DIM,
+                    device=occ_input.device, dtype=occ_input.dtype,
+                )
+                chord_feat_per_occ[ei_inst_rev[1]] = x_dict['chord'][ei_inst_rev[0]]
+                occ_input = torch.cat([occ_input, chord_feat_per_occ], dim=1)
+
         h = {
-            'occ':   self.occ_proj(x_dict['occ']),
+            'occ':   self.occ_proj(occ_input),
             'chord': self.chord_proj(x_dict['chord']),
             'sec':   self.sec_proj(x_sec),
         }
@@ -98,7 +131,9 @@ class MusicHeteroGNN(nn.Module):
         # Filter edge_index_dict to only edges used by active convs
         active_ets = set()
         if self.use_seq_edges:
-            active_ets |= {('occ', 'next', 'occ'), ('occ', 'prev', 'occ')}
+            active_ets.add(('occ', 'next', 'occ'))
+        if self.use_seq_edges and self.use_prev_edges:
+            active_ets.add(('occ', 'prev', 'occ'))
         if self.use_inst_edges:
             active_ets |= {('occ', 'instance_of', 'chord'), ('chord', 'inst_rev', 'occ')}
         if self.use_section_edges:

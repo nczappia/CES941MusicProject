@@ -1,0 +1,43 @@
+Loading cached graphs from data/processed/graphs.pkl
+  Loaded 890 graphs.
+Split: 623 train / 133 val / 134 test songs
+GAT model parameters: 328,721
+  use_attention=True  — GATConv (4 heads) instead of SAGEConv
+  use_prev_edges=False — causal, no leakage
+
+=== Training Causal GAT HeteroGNN ===
+  Epoch   5 | train_loss=2.0249 | val_ce=1.9645 | val_top1=0.524 | val_top5=0.815
+  Epoch  10 | train_loss=1.7415 | val_ce=1.7486 | val_top1=0.566 | val_top5=0.853
+  Epoch  15 | train_loss=1.6389 | val_ce=1.6942 | val_top1=0.583 | val_top5=0.873
+  Epoch  20 | train_loss=1.5544 | val_ce=1.6293 | val_top1=0.586 | val_top5=0.883
+  Epoch  25 | train_loss=1.5053 | val_ce=1.6021 | val_top1=0.597 | val_top5=0.887
+  Epoch  30 | train_loss=1.4659 | val_ce=1.5871 | val_top1=0.602 | val_top5=0.894
+  Epoch  35 | train_loss=1.4386 | val_ce=1.5759 | val_top1=0.605 | val_top5=0.895
+  Epoch  40 | train_loss=1.4196 | val_ce=1.5554 | val_top1=0.611 | val_top5=0.898
+  Epoch  45 | train_loss=1.4001 | val_ce=1.5533 | val_top1=0.607 | val_top5=0.900
+  Epoch  50 | train_loss=1.3933 | val_ce=1.5427 | val_top1=0.611 | val_top5=0.900
+  Epoch  55 | train_loss=1.3931 | val_ce=1.5443 | val_top1=0.614 | val_top5=0.902
+  Epoch  60 | train_loss=1.3767 | val_ce=1.5452 | val_top1=0.613 | val_top5=0.901
+
+=== GAT Test Results ===
+  top1_acc: 0.6030
+  top5_acc: 0.9095
+  top10_acc: 0.9637
+  cross_entropy: 1.4399
+
+=== Comparison: SAGEConv vs GATConv ===
+  Model                           Top-1    Top-5    CE
+  Causal SAGEConv (v2)            0.6075   0.8901   1.4430
+  Causal GATConv (4 heads)        0.6030   0.9095   1.4399
+Saved results/gat_training_curves.png
+
+=== Extracting Attention Weights ===
+Extracting attention weights...
+Traceback (most recent call last):
+  File "/home/mizhap/MSU/classes/Graph_ML_941/CES941MusicProject/scripts/09_gat_attention.py", line 357, in <module>
+    main()
+  File "/home/mizhap/MSU/classes/Graph_ML_941/CES941MusicProject/scripts/09_gat_attention.py", line 350, in main
+    plot_attention_by_step(model, all_graphs, DEVICE)
+  File "/home/mizhap/MSU/classes/Graph_ML_941/CES941MusicProject/scripts/09_gat_attention.py", line 172, in plot_attention_by_step
+    parts = rel_key.split('__')
+AttributeError: 'tuple' object has no attribute 'split'
