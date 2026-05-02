@@ -1,0 +1,50 @@
+Using device: cuda
+Genre classes (9): ['blues', 'country', 'disco_dance', 'folk', 'jazz', 'pop', 'rock', 'soul_r&b', 'other']
+Genre distribution: Counter({6: 459, 5: 169, 8: 70, 7: 63, 2: 32, 1: 31, 3: 24, 4: 23, 0: 19})
+Class weights: {'blues': '5.20', 'country': '3.19', 'disco_dance': '3.09', 'folk': '4.12', 'jazz': '4.30', 'pop': '0.59', 'rock': '0.22', 'soul_r&b': '1.57', 'other': '1.41'}
+Loading cached graphs from data/processed/graphs.pkl
+  Loaded 890 graphs.
+Split: 623 train / 133 val / 134 test songs
+Train songs with genre label: 623/623
+Multi-task model parameters: 620,186
+
+=== Training multi-task GNN (genre_weight=0.5, balanced loss) ===
+  Epoch   5 | chord_ce=2.0941 | top1=0.483 | genre_acc=0.278
+  Epoch  10 | chord_ce=1.8787 | top1=0.543 | genre_acc=0.218
+  Epoch  15 | chord_ce=1.7636 | top1=0.555 | genre_acc=0.316
+  Epoch  20 | chord_ce=1.6968 | top1=0.578 | genre_acc=0.271
+  Epoch  25 | chord_ce=1.6871 | top1=0.581 | genre_acc=0.211
+  Epoch  30 | chord_ce=1.6446 | top1=0.592 | genre_acc=0.248
+  Epoch  35 | chord_ce=1.6284 | top1=0.587 | genre_acc=0.286
+  Epoch  40 | chord_ce=1.6241 | top1=0.595 | genre_acc=0.256
+  Epoch  45 | chord_ce=1.6172 | top1=0.595 | genre_acc=0.286
+  Epoch  50 | chord_ce=1.6142 | top1=0.599 | genre_acc=0.308
+  Epoch  55 | chord_ce=1.6103 | top1=0.599 | genre_acc=0.293
+  Epoch  60 | chord_ce=1.6102 | top1=0.599 | genre_acc=0.293
+
+=== Test Results ===
+  Chord top-1: 0.5940
+  Chord top-5: 0.8805
+  Chord CE:    1.5218
+  Genre top-1: 0.3358
+
+  Per-genre accuracy:
+    rock             acc=0.433  n=67
+    pop              acc=0.231  n=26
+    other            acc=0.200  n=15
+    soul_r&b         acc=0.364  n=11
+    blues            acc=0.000  n=5
+    country          acc=0.333  n=3
+    disco_dance      acc=0.333  n=3
+    folk             acc=0.000  n=2
+    jazz             acc=0.500  n=2
+Saved results/multitask_training_curves.png
+
+Collecting embeddings for UMAP...
+/home/mizhap/MSU/classes/Graph_ML_941/CES941MusicProject/venv/lib/python3.10/site-packages/umap/umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+/home/mizhap/MSU/classes/Graph_ML_941/CES941MusicProject/venv/lib/python3.10/site-packages/numba/np/ufunc/parallel.py:373: NumbaWarning: The TBB threading layer requires TBB version 2021 update 6 or later i.e., TBB_INTERFACE_VERSION >= 12060. Found TBB_INTERFACE_VERSION = 12050. The TBB threading layer is disabled.
+  warnings.warn(problem)
+Saved results/multitask_genre_umap.png
+
+Done. All outputs in results/

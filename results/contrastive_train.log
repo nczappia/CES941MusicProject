@@ -1,0 +1,36 @@
+Device: cuda
+Loading cached graphs from data/processed/graphs.pkl
+  Loaded 890 graphs.
+Split: 623 train / 133 val / 134 test songs
+Graphs: 623 train / 133 val / 134 test
+Parameters: 647,249
+
+=== Contrastive Training ===
+  Epoch  10/100  train=2.3809  val=2.0731
+  Epoch  20/100  train=2.3363  val=2.0585
+  Epoch  30/100  train=2.3234  val=2.0277
+  Epoch  40/100  train=2.3156  val=2.0223
+  Epoch  50/100  train=2.2975  val=2.0138
+  Epoch  60/100  train=2.2868  val=2.0048  ← best
+  Epoch  70/100  train=2.2885  val=2.0060
+  Epoch  80/100  train=2.2885  val=2.0069
+  Epoch  90/100  train=2.2814  val=2.0064
+  Epoch 100/100  train=2.2862  val=2.0078
+
+Best val loss 2.0042 at epoch 91
+  Saved results/contrastive_training_curves.png
+
+Extracting embeddings...
+  Embeddings shape: (890, 128)
+
+=== Genre Linear Probe ===
+Traceback (most recent call last):
+  File "/home/mizhap/MSU/classes/Graph_ML_941/CES941MusicProject/scripts/22_contrastive.py", line 393, in <module>
+    main()
+  File "/home/mizhap/MSU/classes/Graph_ML_941/CES941MusicProject/scripts/22_contrastive.py", line 365, in main
+    train_acc, test_acc, per_cls = genre_probe(embs, all_graphs, genre_labels, train_idx, test_idx)
+  File "/home/mizhap/MSU/classes/Graph_ML_941/CES941MusicProject/scripts/22_contrastive.py", line 241, in genre_probe
+    X_tr, y_tr = collect(train_idx)
+  File "/home/mizhap/MSU/classes/Graph_ML_941/CES941MusicProject/scripts/22_contrastive.py", line 235, in collect
+    if g not in COARSE:
+TypeError: unhashable type: 'dict'

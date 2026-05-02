@@ -1,0 +1,67 @@
+Loading cached graphs from data/processed/graphs.pkl
+  Loaded 890 graphs.
+Split: 623 train / 133 val / 134 test songs
+Loaded checkpoint: results/multitask_best.pt
+Collecting embeddings and predictions...
+  890 songs with genre labels
+Saved results/genre_confusion_matrix.png
+Saved results/genre_centroid_similarity.png
+
+Most similar genre pairs (embedding space):
+  rock ↔ other: 0.919
+  pop ↔ other: 0.918
+  pop ↔ soul_r&b: 0.912
+  pop ↔ rock: 0.897
+  country ↔ rock: 0.824
+Least similar genre pairs:
+  blues ↔ folk: 0.278
+  disco_dance ↔ jazz: 0.264
+  blues ↔ disco_dance: 0.060
+Saved results/genre_typical_songs.json
+
+Most genre-typical songs:
+
+  BLUES
+    James Brown — I Got You (I Feel Good)  (sim=0.787)
+    Jimmy Reed — Baby What You Want Me To Do  (sim=0.772)
+    Jimmy Reed — Baby What You Want Me To Do  (sim=0.772)
+
+  COUNTRY
+    Glen Campbell — It's Only Make Believe  (sim=0.804)
+    Juice Newton — Queen Of Hearts  (sim=0.792)
+    Roger Miller — You Can't Roller Skate In A Buffalo Herd  (sim=0.774)
+
+  DISCO_DANCE
+    Pet Shop Boys — What Have I Done To Deserve This?  (sim=0.756)
+    Pet Shop Boys — Always on My Mind  (sim=0.724)
+    Village People — In The Navy  (sim=0.723)
+
+  FOLK
+    Crosby, Stills & Nash — Southern Cross  (sim=0.769)
+    Nitty Gritty Dirt Band — Buy For Me The Rain  (sim=0.754)
+    Jerry Jeff Walker — Mr. Bojangles  (sim=0.746)
+
+  JAZZ
+    LaVern Baker — I Cried A Tear  (sim=0.760)
+    LaVern Baker — I Cried A Tear  (sim=0.760)
+    LaVern Baker — I Cried A Tear  (sim=0.760)
+
+  POP
+    Billy Swan — I Can Help  (sim=0.717)
+    Billy Swan — I Can Help  (sim=0.717)
+    The Pointer Sisters — Jump (for My Love)  (sim=0.707)
+
+  ROCK
+    Roy Orbison — Cry Softly Lonely One  (sim=0.823)
+    Whitesnake — Here I Go Again  (sim=0.821)
+    Dr. Hook — Years From Now  (sim=0.808)
+
+  SOUL_R&B
+    Gladys Knight & The Pips — Baby Don't Change Your Mind  (sim=0.770)
+    Gladys Knight & The Pips — Baby Don't Change Your Mind  (sim=0.770)
+    Gladys Knight & The Pips — Baby Don't Change Your Mind  (sim=0.770)
+
+  OTHER
+    The String-A-Longs — Wheels  (sim=0.773)
+    The String-A-Longs — Wheels  (sim=0.773)
+    The String-A-Longs — Wheels  (sim=0.773)

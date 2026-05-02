@@ -1,0 +1,182 @@
+{
+  "blues": [
+    {
+      "song_id": "0314",
+      "title": "I Got You (I Feel Good)",
+      "artist": "James Brown",
+      "similarity": 0.7869807481765747
+    },
+    {
+      "song_id": "1024",
+      "title": "Baby What You Want Me To Do",
+      "artist": "Jimmy Reed",
+      "similarity": 0.771820068359375
+    },
+    {
+      "song_id": "1263",
+      "title": "Baby What You Want Me To Do",
+      "artist": "Jimmy Reed",
+      "similarity": 0.771820068359375
+    }
+  ],
+  "country": [
+    {
+      "song_id": "0623",
+      "title": "It's Only Make Believe",
+      "artist": "Glen Campbell",
+      "similarity": 0.804245114326477
+    },
+    {
+      "song_id": "0690",
+      "title": "Queen Of Hearts",
+      "artist": "Juice Newton",
+      "similarity": 0.7919975519180298
+    },
+    {
+      "song_id": "0308",
+      "title": "You Can't Roller Skate In A Buffalo Herd",
+      "artist": "Roger Miller",
+      "similarity": 0.7737656235694885
+    }
+  ],
+  "disco_dance": [
+    {
+      "song_id": "0648",
+      "title": "What Have I Done To Deserve This?",
+      "artist": "Pet Shop Boys",
+      "similarity": 0.7555510997772217
+    },
+    {
+      "song_id": "0184",
+      "title": "Always on My Mind",
+      "artist": "Pet Shop Boys",
+      "similarity": 0.724294126033783
+    },
+    {
+      "song_id": "0306",
+      "title": "In The Navy",
+      "artist": "Village People",
+      "similarity": 0.723297119140625
+    }
+  ],
+  "folk": [
+    {
+      "song_id": "0589",
+      "title": "Southern Cross",
+      "artist": "Crosby, Stills & Nash",
+      "similarity": 0.7688814401626587
+    },
+    {
+      "song_id": "0088",
+      "title": "Buy For Me The Rain",
+      "artist": "Nitty Gritty Dirt Band",
+      "similarity": 0.7541771531105042
+    },
+    {
+      "song_id": "0294",
+      "title": "Mr. Bojangles",
+      "artist": "Jerry Jeff Walker",
+      "similarity": 0.7461902499198914
+    }
+  ],
+  "jazz": [
+    {
+      "song_id": "0822",
+      "title": "I Cried A Tear",
+      "artist": "LaVern Baker",
+      "similarity": 0.7598731517791748
+    },
+    {
+      "song_id": "0954",
+      "title": "I Cried A Tear",
+      "artist": "LaVern Baker",
+      "similarity": 0.75987309217453
+    },
+    {
+      "song_id": "1166",
+      "title": "I Cried A Tear",
+      "artist": "LaVern Baker",
+      "similarity": 0.7598730325698853
+    }
+  ],
+  "pop": [
+    {
+      "song_id": "0601",
+      "title": "I Can Help",
+      "artist": "Billy Swan",
+      "similarity": 0.7170979976654053
+    },
+    {
+      "song_id": "1093",
+      "title": "I Can Help",
+      "artist": "Billy Swan",
+      "similarity": 0.7170979976654053
+    },
+    {
+      "song_id": "0850",
+      "title": "Jump (for My Love)",
+      "artist": "The Pointer Sisters",
+      "similarity": 0.7068111896514893
+    }
+  ],
+  "rock": [
+    {
+      "song_id": "0064",
+      "title": "Cry Softly Lonely One",
+      "artist": "Roy Orbison",
+      "similarity": 0.8234809637069702
+    },
+    {
+      "song_id": "0300",
+      "title": "Here I Go Again",
+      "artist": "Whitesnake",
+      "similarity": 0.8214409947395325
+    },
+    {
+      "song_id": "0656",
+      "title": "Years From Now",
+      "artist": "Dr. Hook",
+      "similarity": 0.8080438375473022
+    }
+  ],
+  "soul_r&b": [
+    {
+      "song_id": "0888",
+      "title": "Baby Don't Change Your Mind",
+      "artist": "Gladys Knight & The Pips",
+      "similarity": 0.7703222036361694
+    },
+    {
+      "song_id": "1250",
+      "title": "Baby Don't Change Your Mind",
+      "artist": "Gladys Knight & The Pips",
+      "similarity": 0.7703222036361694
+    },
+    {
+      "song_id": "0705",
+      "title": "Baby Don't Change Your Mind",
+      "artist": "Gladys Knight & The Pips",
+      "similarity": 0.7703222036361694
+    }
+  ],
+  "other": [
+    {
+      "song_id": "0147",
+      "title": "Wheels",
+      "artist": "The String-A-Longs",
+      "similarity": 0.7733508944511414
+    },
+    {
+      "song_id": "0318",
+      "title": "Wheels",
+      "artist": "The String-A-Longs",
+      "similarity": 0.7733508944511414
+    },
+    {
+      "song_id": "0863",
+      "title": "Wheels",
+      "artist": "The String-A-Longs",
+      "similarity": 0.7733508944511414
+    }
+  ]
+}

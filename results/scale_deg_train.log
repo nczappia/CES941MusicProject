@@ -1,0 +1,52 @@
+/home/mizhap/MSU/classes/Graph_ML_941/CES941MusicProject/venv/lib/python3.10/site-packages/umap/umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+/home/mizhap/MSU/classes/Graph_ML_941/CES941MusicProject/venv/lib/python3.10/site-packages/numba/np/ufunc/parallel.py:373: NumbaWarning: The TBB threading layer requires TBB version 2021 update 6 or later i.e., TBB_INTERFACE_VERSION >= 12060. Found TBB_INTERFACE_VERSION = 12050. The TBB threading layer is disabled.
+  warnings.warn(problem)
+Using device: cuda
+Genre classes (9): ['blues', 'country', 'disco_dance', 'folk', 'jazz', 'pop', 'rock', 'soul_r&b', 'other']
+Parsing songs from data/McGill-Billboard ...
+  Parsed 890 songs.
+  Built 890 graphs (0 skipped on error).
+  Saved to data/processed/graphs.pkl
+Split: 623 train / 133 val / 134 test songs
+Train songs with genre label: 623/623
+Scale_deg node count in first graph: 12
+Edge types: ['next', 'prev', 'instance_of', 'inst_rev', 'in_section', 'sec_rev', 'next_section', 'chord_contains', 'note_in_chord', 'chord_degree', 'degree_rev']
+Scale-deg enriched model parameters: 822,682
+
+=== Training scale-degree enriched GNN (genre_weight=0.5) ===
+  Epoch   5 | chord_ce=2.2679 | top1=0.431 | genre_acc=0.165
+  Epoch  10 | chord_ce=1.9467 | top1=0.516 | genre_acc=0.195
+  Epoch  15 | chord_ce=1.8399 | top1=0.544 | genre_acc=0.188
+  Epoch  20 | chord_ce=1.7522 | top1=0.566 | genre_acc=0.165
+  Epoch  25 | chord_ce=1.7145 | top1=0.573 | genre_acc=0.233
+  Epoch  30 | chord_ce=1.7051 | top1=0.581 | genre_acc=0.226
+  Epoch  35 | chord_ce=1.6857 | top1=0.586 | genre_acc=0.226
+  Epoch  40 | chord_ce=1.6583 | top1=0.589 | genre_acc=0.211
+  Epoch  45 | chord_ce=1.6454 | top1=0.603 | genre_acc=0.248
+  Epoch  50 | chord_ce=1.6419 | top1=0.600 | genre_acc=0.271
+  Epoch  55 | chord_ce=1.6425 | top1=0.600 | genre_acc=0.301
+  Epoch  60 | chord_ce=1.6413 | top1=0.601 | genre_acc=0.293
+
+=== Test Results ===
+  Chord top-1: 0.5877
+  Chord top-5: 0.8755
+  Chord CE:    1.5476
+  Genre top-1: 0.3433
+
+  Per-genre accuracy:
+    rock             acc=0.403  n=67
+    pop              acc=0.269  n=26
+    other            acc=0.200  n=15
+    soul_r&b         acc=0.545  n=11
+    blues            acc=0.200  n=5
+    country          acc=0.000  n=3
+    disco_dance      acc=0.333  n=3
+    folk             acc=0.000  n=2
+    jazz             acc=0.500  n=2
+Saved results/scale_deg_training_curves.png
+
+Collecting embeddings for UMAP...
+Saved results/scale_deg_genre_umap.png
+
+Done. All outputs in results/

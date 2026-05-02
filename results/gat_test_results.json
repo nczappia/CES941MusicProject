@@ -1,0 +1,8 @@
+{
+  "test": {
+    "top1_acc": 0.6079,
+    "top5_acc": 0.8987,
+    "top10_acc": 0.9562,
+    "cross_entropy": 1.445
+  }
+}

@@ -265,6 +265,10 @@ def _get_occ_embeddings(model: MusicHeteroGNN, data: HeteroData) -> torch.Tensor
         'chord': model.chord_proj(data['chord'].x),
         'sec':   model.sec_proj(x_sec),
     }
+    if model.use_note_edges and model.note_proj is not None:
+        h['note'] = model.note_proj(data['note'].x.to(device))
+    if model.use_scale_deg_edges and model.scale_deg_proj is not None:
+        h['scale_deg'] = model.scale_deg_proj(data['scale_deg'].x.to(device))
 
     active_ets = set()
     if model.use_seq_edges:
@@ -277,6 +281,10 @@ def _get_occ_embeddings(model: MusicHeteroGNN, data: HeteroData) -> torch.Tensor
         active_ets |= {('occ', 'in_section', 'sec'), ('sec', 'sec_rev', 'occ')}
     if model.use_sec_seq_edges and model.use_section_edges:
         active_ets.add(('sec', 'next_section', 'sec'))
+    if model.use_note_edges:
+        active_ets |= {('chord', 'chord_contains', 'note'), ('note', 'note_in_chord', 'chord')}
+    if model.use_scale_deg_edges:
+        active_ets |= {('chord', 'chord_degree', 'scale_deg'), ('scale_deg', 'degree_rev', 'chord')}
 
     active_edge_index = {
         k: v for k, v in data.edge_index_dict.items()

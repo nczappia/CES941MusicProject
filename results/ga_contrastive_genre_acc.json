@@ -1,0 +1,20 @@
+{
+  "train_acc": 0.6381578947368421,
+  "test_acc": 0.5736434108527132,
+  "per_class": {
+    "rock": 0.9285714285714286,
+    "pop": 0.14285714285714285,
+    "soul_r&b": 0.1875,
+    "country": 0.0,
+    "folk": 0.0,
+    "jazz": 0.0,
+    "blues": 0.2,
+    "disco_dance": 0.3333333333333333
+  },
+  "baselines": {
+    "frozen_probe": 0.239,
+    "multitask_het_gnn": 0.358,
+    "hgt_hierarchical": 0.507,
+    "contrastive_v1": 0.538
+  }
+}

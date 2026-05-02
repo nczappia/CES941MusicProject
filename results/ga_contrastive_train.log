@@ -1,0 +1,49 @@
+Device: cuda
+Loading cached graphs from data/processed/graphs.pkl
+  Loaded 890 graphs.
+Split: 623 train / 133 val / 134 test songs
+Graphs: 623 train / 133 val / 134 test
+Genre labels: 864/890 songs have known coarse genre
+Parameters: 647,249
+
+=== Genre-Aware Contrastive Training ===
+  Epoch  10/100  train=1.9663  val=1.8095
+  Epoch  20/100  train=1.8928  val=1.7803
+  Epoch  30/100  train=1.8432  val=1.7720
+  Epoch  40/100  train=1.8111  val=1.7683
+  Epoch  50/100  train=1.7701  val=1.7899
+  Epoch  60/100  train=1.7303  val=1.7733
+  Epoch  70/100  train=1.7059  val=1.8041
+  Epoch  80/100  train=1.6688  val=1.7987
+  Epoch  90/100  train=1.6743  val=1.8051
+  Epoch 100/100  train=1.6566  val=1.7995
+/home/mizhap/MSU/classes/Graph_ML_941/CES941MusicProject/venv/lib/python3.10/site-packages/umap/umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+/home/mizhap/MSU/classes/Graph_ML_941/CES941MusicProject/venv/lib/python3.10/site-packages/numba/np/ufunc/parallel.py:373: NumbaWarning: The TBB threading layer requires TBB version 2021 update 6 or later i.e., TBB_INTERFACE_VERSION >= 12060. Found TBB_INTERFACE_VERSION = 12050. The TBB threading layer is disabled.
+  warnings.warn(problem)
+
+Best val loss 1.7558 at epoch 42
+  Saved results/ga_contrastive_training_curves.png
+
+Extracting embeddings...
+  Embeddings shape: (890, 128)
+
+=== Genre Linear Probe ===
+  Train acc: 0.638
+  Test  acc: 0.574
+  Per-class test accuracy:
+    rock           : 0.929
+    disco_dance    : 0.333
+    blues          : 0.200
+    soul_r&b       : 0.188
+    pop            : 0.143
+    country        : 0.000
+    folk           : 0.000
+    jazz           : 0.000
+
+Generating UMAP...
+  Saved results/ga_contrastive_genre_umap.png
+
+Done.
+  Genre probe test accuracy: 57.4%
+  Baselines: frozen 23.9% | multitask 35.8% | HGT hier. 50.7% | contrastive v1 53.8%

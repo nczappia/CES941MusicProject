@@ -1,0 +1,7 @@
+{
+  "train_acc": 0.5974235104669887,
+  "test_acc": 0.5112781954887218,
+  "baseline_frozen_probe": 0.239,
+  "multitask_het_gnn": 0.358,
+  "hgt_hierarchical": 0.507
+}

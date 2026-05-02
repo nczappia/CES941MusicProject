@@ -1,0 +1,33 @@
+Device: cuda
+PE dim: 16  →  occ.x: 19 → 35 dims
+Loading cached graphs from data/processed/graphs.pkl
+  Loaded 890 graphs.
+Split: 623 train / 133 val / 134 test songs
+Graphs: 623 train / 133 val / 134 test
+Injecting positional encoding into occ features...
+  occ.x shape after PE: torch.Size([67, 35])
+Parameters: 624,529
+
+=== Training Position-Aware GNN ===
+  Epoch   5 | train_loss=2.0388 | val_ce=2.0180 | val_top1=0.487 | val_top5=0.800
+  Epoch  10 | train_loss=1.6229 | val_ce=1.8046 | val_top1=0.548 | val_top5=0.833
+  Epoch  15 | train_loss=1.4723 | val_ce=1.6924 | val_top1=0.578 | val_top5=0.857
+  Epoch  20 | train_loss=1.3719 | val_ce=1.6084 | val_top1=0.597 | val_top5=0.865
+  Epoch  25 | train_loss=1.3101 | val_ce=1.5642 | val_top1=0.601 | val_top5=0.872
+  Epoch  30 | train_loss=1.2599 | val_ce=1.5564 | val_top1=0.605 | val_top5=0.874
+  Epoch  35 | train_loss=1.2228 | val_ce=1.5448 | val_top1=0.614 | val_top5=0.876
+  Epoch  40 | train_loss=1.1800 | val_ce=1.5218 | val_top1=0.617 | val_top5=0.879
+  Epoch  45 | train_loss=1.1540 | val_ce=1.5202 | val_top1=0.616 | val_top5=0.881
+  Epoch  50 | train_loss=1.1366 | val_ce=1.5029 | val_top1=0.621 | val_top5=0.881
+  Epoch  55 | train_loss=1.1264 | val_ce=1.5030 | val_top1=0.622 | val_top5=0.880
+  Epoch  60 | train_loss=1.1254 | val_ce=1.5017 | val_top1=0.624 | val_top5=0.881
+  Saved results/pe_gnn_training_curves.png
+
+=== Test Evaluation ===
+  Top-1 : 0.613
+  Top-5 : 0.895
+  CE    : 1.3755
+
+Done.
+  PE GNN top-1: 61.3%
+  Causal v2:    60.8%  |  GAT: 61.3%

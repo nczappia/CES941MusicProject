@@ -1,0 +1,48 @@
+Using device: cuda
+Genre classes (9): ['blues', 'country', 'disco_dance', 'folk', 'jazz', 'pop', 'rock', 'soul_r&b', 'other']
+Loading cached graphs from data/processed/graphs.pkl
+  Loaded 890 graphs.
+Split: 623 train / 133 val / 134 test songs
+Note-graph model parameters: 819,226
+  use_note_edges=True — chord_contains + note_in_chord edges active
+
+=== Training note-graph GNN ===
+  Epoch   5 | chord_ce=2.1172 | top1=0.463 | genre_acc=0.158
+  Epoch  10 | chord_ce=1.8247 | top1=0.538 | genre_acc=0.180
+  Epoch  15 | chord_ce=1.7388 | top1=0.570 | genre_acc=0.316
+  Epoch  20 | chord_ce=1.6851 | top1=0.585 | genre_acc=0.218
+  Epoch  25 | chord_ce=1.6774 | top1=0.579 | genre_acc=0.226
+  Epoch  30 | chord_ce=1.6625 | top1=0.591 | genre_acc=0.233
+  Epoch  35 | chord_ce=1.6492 | top1=0.589 | genre_acc=0.248
+  Epoch  40 | chord_ce=1.6425 | top1=0.592 | genre_acc=0.195
+  Epoch  45 | chord_ce=1.6361 | top1=0.594 | genre_acc=0.248
+  Epoch  50 | chord_ce=1.6279 | top1=0.596 | genre_acc=0.293
+  Epoch  55 | chord_ce=1.6270 | top1=0.598 | genre_acc=0.293
+  Epoch  60 | chord_ce=1.6274 | top1=0.598 | genre_acc=0.293
+
+=== Test Results ===
+  Chord top-1:  0.5955
+  Chord top-5:  0.8868
+  Chord CE:     1.5104
+  Genre top-1:  0.3209
+
+  Per-genre accuracy:
+    rock             acc=0.373  n=67
+    pop              acc=0.269  n=26
+    other            acc=0.200  n=15
+    soul_r&b         acc=0.364  n=11
+    blues            acc=0.000  n=5
+    country          acc=0.333  n=3
+    disco_dance      acc=0.333  n=3
+    folk             acc=0.000  n=2
+    jazz             acc=1.000  n=2
+Saved results/note_gnn_training_curves.png
+
+Collecting embeddings for UMAP...
+/home/mizhap/MSU/classes/Graph_ML_941/CES941MusicProject/venv/lib/python3.10/site-packages/umap/umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+/home/mizhap/MSU/classes/Graph_ML_941/CES941MusicProject/venv/lib/python3.10/site-packages/numba/np/ufunc/parallel.py:373: NumbaWarning: The TBB threading layer requires TBB version 2021 update 6 or later i.e., TBB_INTERFACE_VERSION >= 12060. Found TBB_INTERFACE_VERSION = 12050. The TBB threading layer is disabled.
+  warnings.warn(problem)
+Saved results/note_gnn_genre_umap.png
+
+Done. All outputs in results/

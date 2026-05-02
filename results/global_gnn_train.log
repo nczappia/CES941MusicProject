@@ -1,0 +1,42 @@
+Using device: cuda
+Genre classes (9): ['blues', 'country', 'disco_dance', 'folk', 'jazz', 'pop', 'rock', 'soul_r&b', 'other']
+Loading songs...
+  890 songs
+Split: 623 train / 133 val / 134 test songs
+Building global heterogeneous graph (key-normalized)...
+  occ nodes:   58,001
+  chord nodes: 145 (global shared)
+  sec nodes:   7,733
+  song nodes:  890
+  edge types:  ['next', 'prev', 'instance_of', 'inst_rev', 'in_section', 'sec_rev', 'next_section', 'chord_contains', 'note_in_chord', 'belongs_to', 'song_rev']
+GlobalMusicGNN parameters: 1,016,858
+
+=== Training global key-normalized GNN ===
+  Epoch   5 | chord_ce=3.0343 | top1=0.280 | genre_acc=0.383
+  Epoch  10 | chord_ce=2.7259 | top1=0.347 | genre_acc=0.211
+  Epoch  15 | chord_ce=2.5612 | top1=0.399 | genre_acc=0.053
+  Epoch  20 | chord_ce=2.3965 | top1=0.420 | genre_acc=0.263
+  Epoch  25 | chord_ce=2.2502 | top1=0.457 | genre_acc=0.113
+  Epoch  30 | chord_ce=2.1198 | top1=0.486 | genre_acc=0.128
+  Epoch  35 | chord_ce=2.0418 | top1=0.502 | genre_acc=0.128
+  Epoch  40 | chord_ce=1.9788 | top1=0.515 | genre_acc=0.158
+  Epoch  45 | chord_ce=1.9489 | top1=0.520 | genre_acc=0.135
+  Epoch  50 | chord_ce=1.9317 | top1=0.528 | genre_acc=0.135
+  Epoch  55 | chord_ce=1.9199 | top1=0.528 | genre_acc=0.135
+  Epoch  60 | chord_ce=1.9185 | top1=0.529 | genre_acc=0.135
+
+=== Test Results ===
+  Chord top-1:  0.5120
+  Chord top-5:  0.8100
+  Chord CE:     1.8907
+  Genre top-1:  0.1791
+Saved results/global_gnn_training_curves.png
+
+Generating UMAP...
+/home/mizhap/MSU/classes/Graph_ML_941/CES941MusicProject/venv/lib/python3.10/site-packages/umap/umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+/home/mizhap/MSU/classes/Graph_ML_941/CES941MusicProject/venv/lib/python3.10/site-packages/numba/np/ufunc/parallel.py:373: NumbaWarning: The TBB threading layer requires TBB version 2021 update 6 or later i.e., TBB_INTERFACE_VERSION >= 12060. Found TBB_INTERFACE_VERSION = 12050. The TBB threading layer is disabled.
+  warnings.warn(problem)
+Saved results/global_gnn_genre_umap.png
+
+Done. All outputs in results/

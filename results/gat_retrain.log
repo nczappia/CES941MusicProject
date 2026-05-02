@@ -1,0 +1,42 @@
+/home/mizhap/MSU/classes/Graph_ML_941/CES941MusicProject/scripts/09_gat_attention.py:212: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  ax.set_xticklabels(rels, rotation=30, ha='right', fontsize=9)
+Loading cached graphs from data/processed/graphs.pkl
+  Loaded 890 graphs.
+Split: 623 train / 133 val / 134 test songs
+GAT model parameters: 332,177
+  use_attention=True  — GATConv (4 heads) instead of SAGEConv
+  use_prev_edges=False — causal, no leakage
+
+=== Training Causal GAT HeteroGNN ===
+  Epoch   5 | train_loss=2.0296 | val_ce=1.9491 | val_top1=0.518 | val_top5=0.825
+  Epoch  10 | train_loss=1.7128 | val_ce=1.7522 | val_top1=0.566 | val_top5=0.861
+  Epoch  15 | train_loss=1.5907 | val_ce=1.6622 | val_top1=0.593 | val_top5=0.875
+  Epoch  20 | train_loss=1.5004 | val_ce=1.6263 | val_top1=0.608 | val_top5=0.880
+  Epoch  25 | train_loss=1.4528 | val_ce=1.6099 | val_top1=0.605 | val_top5=0.886
+  Epoch  30 | train_loss=1.4152 | val_ce=1.5936 | val_top1=0.601 | val_top5=0.893
+  Epoch  35 | train_loss=1.3793 | val_ce=1.5806 | val_top1=0.611 | val_top5=0.892
+  Epoch  40 | train_loss=1.3743 | val_ce=1.5724 | val_top1=0.612 | val_top5=0.896
+  Epoch  45 | train_loss=1.3533 | val_ce=1.5760 | val_top1=0.609 | val_top5=0.895
+  Epoch  50 | train_loss=1.3437 | val_ce=1.5727 | val_top1=0.609 | val_top5=0.896
+  Epoch  55 | train_loss=1.3334 | val_ce=1.5715 | val_top1=0.609 | val_top5=0.896
+  Epoch  60 | train_loss=1.3366 | val_ce=1.5698 | val_top1=0.609 | val_top5=0.896
+
+=== GAT Test Results ===
+  top1_acc: 0.6079
+  top5_acc: 0.8987
+  top10_acc: 0.9562
+  cross_entropy: 1.4450
+
+=== Comparison: SAGEConv vs GATConv ===
+  Model                           Top-1    Top-5    CE
+  Causal SAGEConv (v2)            0.6075   0.8924   1.4644
+  Causal GATConv (4 heads)        0.6079   0.8987   1.4450
+Saved results/gat_training_curves.png
+
+=== Extracting Attention Weights ===
+Extracting attention weights...
+Saved results/gat_attention_by_relation.png
+Building attention transition heatmap...
+Saved results/gat_attention_heatmap.png
+
+All outputs saved to results/
